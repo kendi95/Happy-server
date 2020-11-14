@@ -1,17 +1,22 @@
 import express from 'express';
-import multer from 'multer';
 import {join} from 'path';
 
-import {orphanageValidation} from '../middleware/validation';
-import uploadConfig from '../config/upload';
-import OrphanagesController from '../controllers/OrphanagesController';
+import orphanagesRoutes from './orphanages.routes';
+import usersRoutes from './users.routes';
+import sessionsRoutes from './sessions.routes';
+import imagesRoutes from './images.routes';
+import { authValidation } from '../middleware/auth.validation';
 
 const router = express.Router();
 
 router.use('/uploads', express.static(join(__dirname, '..', '..', 'uploads')));
 
-router.get('/orphanages', OrphanagesController.index);
-router.get('/orphanages/:id', OrphanagesController.show);
-router.post('/orphanages', multer(uploadConfig).array('files'), orphanageValidation, OrphanagesController.create);
+router.use('/orphanages', orphanagesRoutes);
+router.use('/sessions', sessionsRoutes);
+router.use('/users', usersRoutes);
+
+router.use(authValidation)
+
+router.use('/images', imagesRoutes);
 
 export default router;

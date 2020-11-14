@@ -7,6 +7,6 @@ try {
   createConnection();
   success('Database connection successful...');
 } catch (err) {
-  error(err);
+  error(`❌  ${err}`);
 }
 

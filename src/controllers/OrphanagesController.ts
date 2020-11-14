@@ -1,62 +1,45 @@
 import {Request, Response} from 'express';
-import consola from 'consola';
-import {getRepository} from 'typeorm';
 
-import Orphanages from '../models/Orphanages';
-import orphanageView from '../views/orphanages_view';
-
-const {error} = consola;
+import {filesToImages} from '../services/Images/FilesToImagesService';
+import {createOrphanage} from '../services/Orphanages/CreateOrphanageService';
+import {showOrphanageById} from '../services/Orphanages/ShowOrphanageByIdService';
+import {listOrphanage} from '../services/Orphanages/ListOrphanageService';
+import {updateOrphanage} from '../services/Orphanages/UpdateOrphanageService';
+import {destroyOrphanage} from '../services/Orphanages/DestroyOrphanageService';
 
 class OrphanagesController {
   async index(req: Request, res: Response) {
-    const repo = getRepository(Orphanages);
-    const orphanages = await repo.find({
-      relations: ['images']
-    });
-    return res.status(200).json(orphanageView.renderMany(orphanages));
+    const orphanages = await listOrphanage();
+    return res.status(200).json(orphanages);
   }
+
   async show(req: Request, res: Response) {
     const {id} = req.params;
-      const repo = getRepository(Orphanages);
-      const orphanage = await repo.findOneOrFail(id, {
-        relations: ['images']
-      });
-      return res.status(200).json(orphanageView.render(orphanage));
+    const orphanage = await showOrphanageById(Number(id));
+    return res.status(200).json(orphanage);
   }
 
   async create(req: Request, res: Response) {
-    const {
-      name, 
-      latitude, 
-      longitude, 
-      about, 
-      instructions, 
-      opening_hours, 
-      open_on_weekends,
-    } = req.body;
-
-    const requestImages = req.files as Express.Multer.File[];
-    const images = requestImages.map(image => {
-      return {
-        path: image.filename
-      };
-    });
-
-    const repo = getRepository(Orphanages);
-    const orphanage = repo.create({
-      name, 
-      latitude, 
-      longitude, 
-      about, 
-      instructions, 
-      opening_hours, 
-      open_on_weekends,
+    const images = filesToImages(req);
+    const orphanage = await createOrphanage({
+      ...req.body,
       images
     });
-
-    await repo.save(orphanage);
-
     return res.status(201).json(orphanage);
+  }
+
+  async update(req: Request, res: Response) {
+    const {id} = req.params
+    const orphanage = await updateOrphanage(Number(id),{
+      ...req.body
+    })
+    return res.status(200).json(orphanage);
+  }
+
+  async destroy(req: Request, res: Response) {
+    const {id} = req.params
+    await destroyOrphanage(Number(id));
+    return res.status(204).send();
   }
 }
 

@@ -1,10 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import * as Yup from 'yup';
 import Consola from 'consola';
-
-interface ValidationErros {
-  [key: string]: string[];
-}
+import { ValidationErros } from '../interfaces';
 
 const {error} = Consola;
 const schema = Yup.object().shape({
