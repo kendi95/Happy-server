@@ -3,15 +3,17 @@ export interface Image {
 }
 
 export interface Orphanage {
-  id: number;
+  id: string;
   name: string;
   latitude: number; 
   longitude: number; 
   about: string; 
   whatsapp: string;
+  telephone: string;
   instructions: string; 
   opening_hours: string; 
   open_on_weekends: boolean;
+  status: string;
   images: Image[];
 }
 
@@ -19,6 +21,7 @@ export interface User {
   name: string;
   email: string;
   password: string;
+  phone: string;
 }
 
 export interface ValidationErros {
@@ -28,4 +31,8 @@ export interface ValidationErros {
 export interface Session {
   email: string;
   password: string;
+}
+
+export interface RecoveryEmail {
+  email: string;
 }

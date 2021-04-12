@@ -9,6 +9,7 @@ const {error} = Consola;
 const schema = Yup.object().shape({
   name: Yup.string().required(),
   email: Yup.string().email().required(),
+  phone: Yup.string().max(11).required(),
   password: Yup.string().min(8).required(),
 });
 
@@ -26,6 +27,7 @@ export const userValidation = async (req: Request, res: Response, next: NextFunc
       })
       return res.status(400).json({ message: 'Error validation.', errors });
     }
+    return res.status(400).json({ error: err.message });
   }
   
 }

@@ -8,7 +8,7 @@ class SessionsController {
       const data = await createSession(req.body);
       return res.status(200).json(data);
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(400).json({ errors: error.message });
     }
   }
 }

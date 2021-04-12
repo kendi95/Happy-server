@@ -1,20 +1,17 @@
 import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
-@Entity('users')
-export default class Users {
+@Entity('users-token')
+export default class UsersToken {
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  name: string;
+  token: string;
 
   @Column()
-  email: string;
+  code: string;
 
   @Column()
-  phone: string;
-
-  @Column()
-  password: string;
+  used: boolean;
 }

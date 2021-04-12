@@ -11,7 +11,7 @@ class ImagesController {
       const data = await createImage(image);
       return res.status(201).json(data);
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(400).json({errors: error.message});
     }
   }
 
@@ -21,7 +21,7 @@ class ImagesController {
       await destroyImage(Number(id));
       return res.status(204).send();
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(400).json({errors: error.message});
     }
   }
 }

@@ -2,8 +2,7 @@ import { getRepository } from "typeorm";
 
 import Orphanages from "../../models/Orphanages";
 
-export const destroyOrphanage = async (id: number) => {
+export const updateStatusOrphanage = async (id: number, status: string ) => {
   const repo = getRepository(Orphanages);
-  await repo.delete(id);
-  return;
+  return await repo.update(id, { status }); 
 }

@@ -8,11 +8,11 @@ export class createOrphanages1603034468373 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'integer',
+            type: 'varchar',
             unsigned: true,
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
             name: 'name',
@@ -36,7 +36,13 @@ export class createOrphanages1603034468373 implements MigrationInterface {
           },
           {
             name: 'whatsapp',
-            type: 'varchar(11)'
+            type: 'varchar(11)',
+            isNullable: true
+          },
+          {
+            name: 'telephone',
+            type: 'varchar(10)',
+            isNullable: true
           },
           {
             name: 'instructions',
@@ -52,10 +58,10 @@ export class createOrphanages1603034468373 implements MigrationInterface {
             default: false
           },
           {
-            name: 'pending',
-            type: 'boolean',
-            default: true
-          }
+            name: 'status',
+            type: 'varchar',
+            default: "string('PENDING')"
+          },
         ]
       }));
     }

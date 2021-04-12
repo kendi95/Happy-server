@@ -9,6 +9,8 @@ const schema = Yup.object().shape({
   latitude: Yup.number().required(),
   longitude: Yup.number().required(),
   about: Yup.string().required().max(300),
+  whatsapp: Yup.string(),
+  telephone: Yup.string(),
   instructions: Yup.string().required(),
   opening_hours: Yup.string().required(),
   open_on_weekends: Yup.boolean().required(),
@@ -21,6 +23,8 @@ export async function orphanageValidation(req: Request, res: Response, next: Nex
       latitude, 
       longitude, 
       about, 
+      whatsapp,
+      telephone,
       instructions, 
       opening_hours, 
       open_on_weekends,
@@ -31,6 +35,8 @@ export async function orphanageValidation(req: Request, res: Response, next: Nex
       latitude,
       longitude,
       about,
+      whatsapp,
+      telephone,
       instructions,
       opening_hours, 
       open_on_weekends: open_on_weekends === 'true',
@@ -48,6 +54,7 @@ export async function orphanageValidation(req: Request, res: Response, next: Nex
       })
       return res.status(400).json({ message: 'Error validation.', errors });
     }
+    return res.status(400).json({ error: err.message });
   }
   
 }

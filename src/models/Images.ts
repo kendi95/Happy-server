@@ -4,8 +4,8 @@ import Orphanages from './Orphanages';
 @Entity('images')
 export default class Images {
 
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   path: string;

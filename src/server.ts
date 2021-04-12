@@ -21,5 +21,5 @@ if (process.env.APP_PORT) {
     success(`🚀 Server is running in port ${process.env.APP_PORT}...`);
   });
 } else {
-  error('❌  Não há valor nessa variável "APP_PORT"');
+  error('❌  A porta do servidor não foi definida.');
 }

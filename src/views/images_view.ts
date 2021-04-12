@@ -4,7 +4,7 @@ export default {
   render(image: Images) {
     return {
       id: image.id,
-      url: `http://192.168.0.16:3333/uploads/${image.path}`,
+      url: `http://192.168.0.18:3333/uploads/${image.path}`,
     }
   },
 
